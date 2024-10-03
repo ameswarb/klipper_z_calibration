@@ -417,7 +417,7 @@ class CalibrationState:
         if check_probe:
             # check if probe is attached and switch is closed
             time = self.toolhead.get_last_move_time()
-            if self.probe.mcu_probe.query_endstop(time):
+            if self.probe.query_endstop(time):
                 raise self.gcmd.error("%s: probe switch not closed - probe not"
                                       " attached?" % (self.gcmd.get_command()))
         if self.helper.first_fast:
@@ -491,7 +491,7 @@ class CalibrationState:
                                                   check_probe=True)
                 # probe bed position
                 probe_site = self._add_probe_offset(bed_site)
-                probe_zero = self._probe_on_site(self.probe.mcu_probe,
+                probe_zero = self._probe_on_site(self.probe.mcu_endstop,
                                                  probe_site,
                                                  check_probe=True)
             finally:
